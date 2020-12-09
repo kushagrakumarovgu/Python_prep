@@ -1,11 +1,10 @@
-import pandas as pd
+import csv
 
-df = pd.read_csv("inventory.csv")
-df_quant = df['quant']
-df_price = df['price']
 cost = 0
-
-for idx in range(len(df_quant)):
-    cost += df_quant[idx] * df_price[idx]
+with open("inventory.csv","r") as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=',')
+    for idx,row in enumerate(csv_reader):
+        if idx != 0:
+            cost += float(row[1]) * float(row[2])
 
 print("Price: {}".format(cost))
